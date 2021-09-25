@@ -7,9 +7,17 @@ public class Employee {
     private int id;
     private String firstName;
     private String lastName;
-    private int personalId;
+    private String personalId;
     private String birthDate;
     private int unitId;
+
+    public Employee(String firstName, String lastName, String personalId, String birthDate, int unitId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.personalId = personalId;
+        this.birthDate = birthDate;
+        this.unitId = unitId;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -23,7 +31,7 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public void setPersonalId(int personalId) {
+    public void setPersonalId(String personalId) {
         this.personalId = personalId;
     }
 
@@ -47,7 +55,7 @@ public class Employee {
         return lastName;
     }
 
-    public int getPersonalId() {
+    public String getPersonalId() {
         return personalId;
     }
 

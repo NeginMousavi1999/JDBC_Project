@@ -9,6 +9,10 @@ public class Unit {
     private String phoneNumber;
     private Employee[] employees = new Employee[100];
 
+    public Unit(String name, String phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
 
     public void setId(int id) {
         this.id = id;
