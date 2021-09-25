@@ -87,5 +87,15 @@ public class AccessToDB {
         return 0;
     }
     //4)
+    public void showUnits() throws SQLException {
+        if (connection != null) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from unit");
+            while (resultSet.next()) {
+                System.out.print(resultSet.getInt("id") + ": " + resultSet.getString("name") + " " + resultSet.getString("phone_number"));
+                System.out.println();
+            }
+        }
+    }
     //5)
 }

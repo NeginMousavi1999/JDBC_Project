@@ -80,6 +80,8 @@ public class Main {
                     break;
 
                 case 5:
+                    accessToDB.showUnits();
+                    printStar();
                     break;
 
                 case 6:
