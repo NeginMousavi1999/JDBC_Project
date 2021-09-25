@@ -62,6 +62,7 @@ public class AccessToDB {
         }
         return 0;
     }
+
     //3)
     public boolean isUnitExists(int id) throws SQLException {
         if (connection != null) {
@@ -86,16 +87,35 @@ public class AccessToDB {
         }
         return 0;
     }
+
     //4)
     public void showUnits() throws SQLException {
         if (connection != null) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from unit");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM unit");
             while (resultSet.next()) {
                 System.out.print(resultSet.getInt("id") + ": " + resultSet.getString("name") + " " + resultSet.getString("phone_number"));
                 System.out.println();
             }
         }
     }
+
     //5)
+    public void showEmployeesInSpecificUnit(int unitId) throws SQLException {
+        int countToShow = 0;
+        if (connection != null) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM employee");
+            while (resultSet.next()) {
+                if (resultSet.getInt("unit_id") == unitId) {
+                    System.out.print(resultSet.getInt("id") + ": " + resultSet.getString("first_name") +
+                            " " + resultSet.getString("last_name"));
+                    System.out.println();
+                    countToShow++;
+                }
+            }
+        }
+        if (countToShow == 0)
+            System.out.println("there is no employee for this unit !!!");
+    }
 }

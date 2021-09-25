@@ -31,6 +31,11 @@ public class Main {
                     String personalId = scanner.nextLine();
                     System.out.print("Enter unit id: ");
                     int unitId = scanner.nextInt();
+                    if (!accessToDB.isUnitExists(unitId)) {
+                        System.out.println("you can't add this employee because we have n't unit with this id...");
+                        printStar();
+                        break;
+                    }
                     Employee newEmp = new Employee(fName, lName, personalId, birthDate, unitId);
                     System.out.println("add employee(s): " + accessToDB.addNewEmployee(newEmp));
                     printStar();
@@ -85,6 +90,15 @@ public class Main {
                     break;
 
                 case 6:
+                    System.out.print("Enter id of unit: ");
+                    id = scanner.nextInt();
+                    if (!accessToDB.isUnitExists(id)) {
+                        System.out.println("we have n't unit with this id...");
+                        printStar();
+                        break;
+                    }
+                    accessToDB.showEmployeesInSpecificUnit(id);
+                    printStar();
                     break;
 
                 case 7:
