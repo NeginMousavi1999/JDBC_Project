@@ -1,4 +1,6 @@
 import db.AccessToDB;
+import db.EmployeeAccessDB;
+import db.UnitAccessDB;
 import organization.Employee;
 import organization.Unit;
 
@@ -11,7 +13,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         Scanner scanner = new Scanner(System.in);
-        AccessToDB accessToDB = new AccessToDB();
+        EmployeeAccessDB empAccessDB = new EmployeeAccessDB();
+        UnitAccessDB unitAccessDB = new UnitAccessDB();
 
         choices:
         do {
@@ -32,13 +35,13 @@ public class Main {
                     String personalId = scanner.nextLine();
                     System.out.print("Enter unit id: ");
                     int unitId = scanner.nextInt();
-                    if (!accessToDB.isUnitExists(unitId)) {
+                    if (!unitAccessDB.isUnitExists(unitId)) {
                         System.out.println("you can't add this employee because we have n't unit with this id...");
                         printStar();
                         break;
                     }
                     Employee newEmp = new Employee(fName, lName, personalId, birthDate, unitId);
-                    System.out.println("add employee(s): " + accessToDB.addNewEmployee(newEmp));
+                    System.out.println("add employee(s): " + empAccessDB.addNewEmployee(newEmp));
                     printStar();
                     break;
 
@@ -49,14 +52,14 @@ public class Main {
                     System.out.print("Enter phone number: ");
                     String phoneNumber = scanner.nextLine();
                     Unit newUnit = new Unit(name, phoneNumber);
-                    System.out.println("add unit(s): " + accessToDB.addNewUnit(newUnit));
+                    System.out.println("add unit(s): " + unitAccessDB.addNewUnit(newUnit));
                     printStar();
                     break;
 
                 case 3:
                     System.out.print("Enter id of employee: ");
                     int id = scanner.nextInt();
-                    if (!accessToDB.isEmployeeExists(id)) {
+                    if (!empAccessDB.isEmployeeExists(id)) {
                         System.out.println("we have n't employee with this id...");
                         printStar();
                         break;
@@ -66,14 +69,14 @@ public class Main {
                     String newFName = scanner.nextLine();
                     System.out.print("Enter new last name: ");
                     String newLName = scanner.nextLine();
-                    System.out.println("update employee(s): " + accessToDB.updateEmployee(id, newFName, newLName));
+                    System.out.println("update employee(s): " + empAccessDB.updateEmployee(id, newFName, newLName));
                     printStar();
                     break;
 
                 case 4:
                     System.out.print("Enter id of unit: ");
                     id = scanner.nextInt();
-                    if (!accessToDB.isUnitExists(id)) {
+                    if (!unitAccessDB.isUnitExists(id)) {
                         System.out.println("we have n't unit with this id...");
                         printStar();
                         break;
@@ -81,24 +84,24 @@ public class Main {
                     scanner.nextLine();
                     System.out.print("Enter new unit name: ");
                     fName = scanner.nextLine();
-                    System.out.println("update unit(s): " + accessToDB.updateUnit(id, fName));
+                    System.out.println("update unit(s): " + unitAccessDB.updateUnit(id, fName));
                     printStar();
                     break;
 
                 case 5:
-                    accessToDB.showUnits();
+                    unitAccessDB.showUnits();
                     printStar();
                     break;
 
                 case 6:
                     System.out.print("Enter id of unit: ");
                     id = scanner.nextInt();
-                    if (!accessToDB.isUnitExists(id)) {
+                    if (!unitAccessDB.isUnitExists(id)) {
                         System.out.println("we have n't unit with this id...");
                         printStar();
                         break;
                     }
-                    accessToDB.showEmployeesInSpecificUnit(id);
+                    empAccessDB.showEmployeesInSpecificUnit(id);
                     printStar();
                     break;
 
