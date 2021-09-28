@@ -106,16 +106,15 @@ public class AccessToDB {
     public void showEmployeesInSpecificUnit(int unitId) throws SQLException {
         int countToShow = 0;
         if (connection != null) {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM employee");
-            //setString setInt
+            String sql = "SELECT * FROM employee WHERE unit_id = ?;";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, unitId);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                if (resultSet.getInt("unit_id") == unitId) {
-                    System.out.print(resultSet.getInt("id") + ": " + resultSet.getString("first_name") +
-                            " " + resultSet.getString("last_name"));
-                    System.out.println();
-                    countToShow++;
-                }
+                System.out.print(resultSet.getInt("id") + ": " + resultSet.getString("first_name") +
+                        " " + resultSet.getString("last_name"));
+                System.out.println();
+                countToShow++;
             }
         }
         if (countToShow == 0)
