@@ -1,3 +1,5 @@
+package db;
+
 import organization.Employee;
 import organization.Unit;
 
@@ -41,12 +43,12 @@ public class AccessToDB {
     //2)
     public boolean isEmployeeExists(int id) throws SQLException {
         if (connection != null) {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM employee;");
-
-            while (resultSet.next()) {
-                if (resultSet.getInt("id") == id)
-                    return true;
+            String sql = "SELECT * FROM employee WHERE id = ?;";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return true;
             }
         }
         return false;
@@ -66,12 +68,12 @@ public class AccessToDB {
     //3)
     public boolean isUnitExists(int id) throws SQLException {
         if (connection != null) {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM unit;");
-
-            while (resultSet.next()) {
-                if (resultSet.getInt("id") == id)
-                    return true;
+            String sql = "SELECT * FROM unit WHERE id = ?;";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return true;
             }
         }
         return false;
@@ -106,6 +108,7 @@ public class AccessToDB {
         if (connection != null) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM employee");
+            //setString setInt
             while (resultSet.next()) {
                 if (resultSet.getInt("unit_id") == unitId) {
                     System.out.print(resultSet.getInt("id") + ": " + resultSet.getString("first_name") +
